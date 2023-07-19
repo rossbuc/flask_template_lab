@@ -21,3 +21,8 @@ def add_event():
     new_event = Event(event_date, event_name, event_number_of_guests, event_room_location, event_description, event_recurring)
     add_new_event(new_event)
     return render_template('index.jinja', title='My Events Planner', events=events)
+
+@events_blueprint.route('/events/<index>/delete', methods=['post', 'get'])
+def delete_event(index):
+    del events[int(index)]
+    return render_template('index.jinja', title='My Events Planner', events=events)
