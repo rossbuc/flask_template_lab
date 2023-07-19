@@ -14,20 +14,28 @@
   <input type="date" id="date" name="date"
        value="2023-07-19"
        min="2023-07-19" max="2024-12-31">
+  <input type="checkbox" id="recurring" name="recurring"/>
+  <label for="recurring">Is this event weekly?</label>
   <input type="submit" value="Add Event"/>
 </form>
 
 <ul>
-  {% for event in events %}  
-    <li>
-        <b>{{ event.name_of_event }}</b>: {{ event.date }}
-    </li>
-    <li>
-        {{event.description}}
-    </li>
-    <li>
-        There are {{event.number_of_guests}} attending.
-    </li>
+  {% for event in events %} 
+    <fieldset>
+        <legend>{{ event.name_of_event }}</legend> 
+            <li>
+                {{ event.date }}
+            </li>
+            <li>
+                {{event.description}}
+            </li>
+            <li>
+                There are {{event.number_of_guests}} attending.
+            </li>
+            {% if event.recurring %}
+                    <li>This event is weekly</li>
+            {% endif %}
+        </fieldset>
   {% endfor %}
 </ul>
 {% endblock %}
