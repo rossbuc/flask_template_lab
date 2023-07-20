@@ -14,10 +14,7 @@ def add_event():
     event_date = request.form['date']
     event_number_of_guests = request.form['number_of_guests']
     event_room_location = request.form['room_location']
-    if 'recurring' in request.form:
-        event_recurring = True
-    else: 
-        event_recurring = False
+    event_recurring = request.form.get('recurring')
     new_event = Event(event_date, event_name, event_number_of_guests, event_room_location, event_description, event_recurring)
     add_new_event(new_event)
     return render_template('index.jinja', title='My Events Planner', events=events)
