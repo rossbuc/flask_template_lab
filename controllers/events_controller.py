@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, request
+from flask import render_template, redirect, Blueprint, request
 from models.event_list import *
 
 events_blueprint = Blueprint("events", __name__)
@@ -7,7 +7,7 @@ events_blueprint = Blueprint("events", __name__)
 def index():
     return render_template('index.jinja', title='My Events Planner', events=events)
 
-@events_blueprint.route('/events', methods=['post'])
+@events_blueprint.route('/events', methods=['POST'])
 def add_event():
     event_name = request.form['name_of_event']
     event_description = request.form['description']
@@ -19,7 +19,8 @@ def add_event():
     add_new_event(new_event)
     return render_template('index.jinja', title='My Events Planner', events=events)
 
-@events_blueprint.route('/events/<index>/delete', methods=['post', 'get'])
-def delete_event(index):
-    del events[int(index)]
-    return render_template('index.jinja', title='My Events Planner', events=events)
+@events_blueprint.route('/events/delete/<event_name>', methods=['POST'])
+def delete(event_name):
+    print(event_name)
+    delete_event(event_name)
+    return redirect('/events')
