@@ -10,5 +10,6 @@ def add_new_event(event):
     events.append(event)
 
 def delete_event(event_to_delete):
-    events.remove(events[event_to_delete])
+    print(event_to_delete)
+    [events.remove(event) for event in events if event.name_of_event == event_to_delete]
             
